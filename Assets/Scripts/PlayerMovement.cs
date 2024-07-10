@@ -12,14 +12,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float player_speed;
     [SerializeField] float jump_force;
     [SerializeField] float dash_force;
-    [SerializeField] bool isDashed;
     [SerializeField] Transform raycast_ground_checker;
     [SerializeField] LayerMask ground_layer;
     [SerializeField] int dash_cooldown;
+    [SerializeField] int shoot_damage;
+    [SerializeField] int melee_damage;
+    [SerializeField] Transform bullet_instantiation_point;
+    [SerializeField] GameObject bullet;
+    [SerializeField] int bullet_despawn_time;
+
 
     
     private double time_dashed;
     private PlayerInput player_input;
+    bool isDashed;
     float horizontal_movement;
     float jump;
 
@@ -32,24 +38,23 @@ public class PlayerMovement : MonoBehaviour
         player_input.Enable();
         player_input.Gameplay.Move.performed += OnMoveRightLeft;
         player_input.Gameplay.Move.canceled += OnMoveRightLeft;
+
         player_input.Gameplay.Jump.performed += OnJump;
         player_input.Gameplay.Dash.performed += OnDash;
 
+        player_input.Gameplay.Shoot.performed += OnShoot;
     
     }
 
-    // Start is called before the first frame update
     void Start()
     {
           
     }
 
-    // Update is called once per frame
     void FixedUpdate()
-    {                    
+    {
         if(isDashed)
         {
-            
             if(horizontal_movement > 0)
             {
                 player_rigid_body.AddForce(new Vector2(dash_force, 0), ForceMode2D.Impulse);
@@ -78,6 +83,15 @@ public class PlayerMovement : MonoBehaviour
        
     }
 
+    private void OnShoot(InputAction.CallbackContext context)
+    {
+        GameObject obj = Instantiate(bullet, bullet_instantiation_point.position, Quaternion.identity);        
+        Bullet bullet_script = obj.GetComponent<Bullet>();
+        bullet_script.AddForce(new Vector2(this.transform.localScale.x, 0));
+        Destroy(obj, bullet_despawn_time);
+        Debug.Log("Shooting...");
+    }
+
     private void OnMoveRightLeft(InputAction.CallbackContext context)
     {
         float move_val = context.ReadValue<float>();
@@ -96,8 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDash(InputAction.CallbackContext context)
     {
-        //player_rigid_body.AddForce(new Vector2(dash_force, 0), ForceMode2D.Impulse);
-        if((Time.time - time_dashed) > dash_cooldown)
+        if ((Time.time - time_dashed) > dash_cooldown)
         {
             isDashed = true;
             time_dashed = Time.time;
@@ -108,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.Raycast(raycast_ground_checker.position,
             -transform.up,
             1,
-            ground_layer
-            );
+            ground_layer);
     }
 }
