@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6888804693580501277}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RayCastGroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,10 @@ GameObject:
   - component: {fileID: 3748716161927388588}
   - component: {fileID: 3919438749445618229}
   - component: {fileID: 5724765377035110520}
-  m_Layer: 0
+  - component: {fileID: 6688024753763081902}
+  - component: {fileID: 7609617855115848367}
+  - component: {fileID: 8302285774962319370}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  m_Sprite: {fileID: 2001843861, guid: c30ec4b845ca6064c8e26224c7ce18ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -179,8 +182,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.022407055, y: 0.0040739775}
+  m_Size: {x: 0.9551859, y: 1.74741}
   m_Direction: 0
 --- !u!114 &5724765377035110520
 MonoBehaviour:
@@ -199,16 +202,97 @@ MonoBehaviour:
   player_speed: 5
   jump_force: 12
   dash_force: 150
+  dash_cooldown: 1
   raycast_ground_checker: {fileID: 6888804693580501277}
   ground_layer:
     serializedVersion: 2
     m_Bits: 8
-  dash_cooldown: 1
   shoot_damage: 0
   melee_damage: 0
   bullet_instantiation_point: {fileID: 1959520890007377820}
   bullet: {fileID: 8390344829289227958, guid: 458553a0275734d4586466c30cebef10, type: 3}
   bullet_despawn_time: 2
+  player_animator: {fileID: 6688024753763081902}
+--- !u!95 &6688024753763081902
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784451739604641035}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 883738dbc033c49499328e2d0cf626f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &7609617855115848367
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784451739604641035}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.010185003}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.375, y: 1.8125}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.375, y: 1.79213}
+  m_EdgeRadius: 0
+--- !u!114 &8302285774962319370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784451739604641035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1bb1fdab1d54b40a7363550fd8c82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
 --- !u!1 &4785062372209499383
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1959520890007377820}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletInstantiationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 4785062372209499383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.589, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0.78, y: -0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
