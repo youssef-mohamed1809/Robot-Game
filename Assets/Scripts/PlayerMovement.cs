@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator player_animator;
 
 
-    int health = 10;
     private double time_dashed;
     private PlayerInput player_input;
     bool isDashed;
