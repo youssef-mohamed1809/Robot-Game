@@ -20,9 +20,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform bullet_instantiation_point;
     [SerializeField] GameObject bullet;
     [SerializeField] int bullet_despawn_time;
+    [SerializeField] Animator player_animator;
 
 
-    
+    int health = 10;
     private double time_dashed;
     private PlayerInput player_input;
     bool isDashed;
@@ -46,28 +47,62 @@ public class PlayerMovement : MonoBehaviour
     
     }
 
-    void Start()
+    void do_dash()
     {
-          
+        if (horizontal_movement > 0)
+        {
+            Debug.Log("Ana Hena");
+            player_rigid_body.AddForce(new Vector2(dash_force, 0), ForceMode2D.Impulse);
+        }
+        else if (horizontal_movement < 0)
+        {
+            Debug.Log("Aw Hena");
+            player_rigid_body.AddForce(new Vector2(-dash_force, 0), ForceMode2D.Impulse);
+        }
     }
 
+    void dash_handler()
+    {
+        player_animator.SetTrigger("dashed");
+        if (horizontal_movement > 0)
+        {
+            Debug.Log("Ana Hena");
+            player_rigid_body.AddForce(new Vector2(dash_force, 0), ForceMode2D.Impulse);
+        }
+        else if (horizontal_movement < 0)
+        {
+            Debug.Log("Aw Hena");
+            player_rigid_body.AddForce(new Vector2(-dash_force, 0), ForceMode2D.Impulse);
+        }
+        isDashed = false;
+    }
     void FixedUpdate()
     {
+
+        if (isGrounded())
+        {
+            player_animator.SetBool("isJumping", false);
+        }
+
+
         if(isDashed)
         {
-            if(horizontal_movement > 0)
-            {
-                player_rigid_body.AddForce(new Vector2(dash_force, 0), ForceMode2D.Impulse);
-            }else if(horizontal_movement < 0)
-            {
-                player_rigid_body.AddForce(new Vector2(-dash_force, 0), ForceMode2D.Impulse);
-            }   
-            
-            
-            isDashed = false;
+            dash_handler();
+
+            //player_animator.SetBool("isDashing", false);
         }
         else
         {
+
+            if(Mathf.Abs(horizontal_movement) > 0)
+            {
+                player_animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                player_animator.SetBool("isRunning", false);
+            }
+
             if((horizontal_movement > 0 && player_transform.localScale.x < 0) || (horizontal_movement < 0 && player_transform.localScale.x > 0))
             {
                 player_transform.localScale = new Vector3(
@@ -85,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnShoot(InputAction.CallbackContext context)
     {
+        player_animator.SetTrigger("shoot");
         GameObject obj = Instantiate(bullet, bullet_instantiation_point.position, Quaternion.identity);        
         Bullet bullet_script = obj.GetComponent<Bullet>();
         bullet_script.AddForce(new Vector2(this.transform.localScale.x, 0));
@@ -103,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded())
         {
+            player_animator.SetBool("isJumping", true);
             player_rigid_body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
         }
         Debug.Log("Jump");
