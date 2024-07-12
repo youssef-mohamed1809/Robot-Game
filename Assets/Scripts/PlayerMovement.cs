@@ -9,12 +9,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Rigidbody2D player_rigid_body;
     [SerializeField] Transform player_transform;
+    [Header("Movement")]
     [SerializeField] float player_speed;
     [SerializeField] float jump_force;
     [SerializeField] float dash_force;
+    [SerializeField] int dash_cooldown;
+
     [SerializeField] Transform raycast_ground_checker;
     [SerializeField] LayerMask ground_layer;
-    [SerializeField] int dash_cooldown;
+
+    [Header("Attack")]
     [SerializeField] int shoot_damage;
     [SerializeField] int melee_damage;
     [SerializeField] Transform bullet_instantiation_point;
