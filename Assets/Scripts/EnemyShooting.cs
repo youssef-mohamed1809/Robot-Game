@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Enemy))]
-public class BigRobotAnim : MonoBehaviour
+public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
     [SerializeField] Transform bulletpos;
