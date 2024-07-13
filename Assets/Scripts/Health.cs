@@ -17,6 +17,17 @@ public class Health : MonoBehaviour
         
     }
 
+    public void addHealth(int added_health)
+    {
+        if(added_health + health < maxHealth) {
+            health += added_health;
+        }
+        else
+        {
+            health = maxHealth;
+        }
+    }
+
     public void takeDamage(int damage)
     {
         health -= damage;
