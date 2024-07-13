@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
+
 public class BulletDamage : MonoBehaviour
 {
     [SerializeField] int bulletDamage;
@@ -12,7 +12,9 @@ public class BulletDamage : MonoBehaviour
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
         { 
             collision.gameObject.GetComponent<Health>().takeDamage(bulletDamage);
-        }else if (collision.gameObject.CompareTag("Ground"))
+            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

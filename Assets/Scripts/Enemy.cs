@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
 
     private Rigidbody2D rb;
@@ -21,11 +22,15 @@ public class Enemy : MonoBehaviour {
     private Vector3 startingPostition;
     private bool outOfPosition;
 
+    //Animation
+    private Animator myAnimator;
+
     // Start is called before the first frame update
     void Start(){
         rb = this.GetComponent<Rigidbody2D>();
         currentPoint = pointB.transform;
         startingPostition = this.GetComponent<Transform>().position;
+        myAnimator = GetComponent<Animator>();
         outOfPosition = false;
     }
 
@@ -37,6 +42,8 @@ public class Enemy : MonoBehaviour {
         Vector2 distance;
         RaycastHit2D hit = Physics2D.Raycast(followSource.position,
             followSource.position - this.transform.position, followSourceDistance);
+
+        myAnimator.SetFloat("Speed", rb.velocity.magnitude);
 
         if (hit){ /* For the follow algorithm */
             if (hit.collider.gameObject.CompareTag("Player")){
