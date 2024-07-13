@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] GameObject pointB;
     [SerializeField] float speedx;
     [SerializeField] float speedy;
+    [SerializeField] float flipRadius = 0.5f;
     private Transform currentPoint;
 
     [Header("Follow")]
@@ -69,13 +70,13 @@ public class Enemy : MonoBehaviour {
             }
 
 
-            if (Vector2.Distance(this.transform.position, currentPoint.position) < 0.5f
+            if (Vector2.Distance(this.transform.position, currentPoint.position) < flipRadius
                 && currentPoint == pointB.transform){
                 flip();
                 currentPoint = pointA.transform;
             }
 
-            if (Vector2.Distance(this.transform.position, currentPoint.position) < 0.5f
+            if (Vector2.Distance(this.transform.position, currentPoint.position) < flipRadius
                 && currentPoint == pointA.transform){
                 flip();
                 currentPoint = pointB.transform;
@@ -97,7 +98,16 @@ public class Enemy : MonoBehaviour {
         Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
         Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
-
         Gizmos.DrawWireSphere(followSource.transform.position, 0.1f);
+    }
+
+    public Transform getFollowSource()
+    {
+        return this.followSource;
+    }
+
+    public float getFollowSourceDistance()
+    {
+        return this.followSourceDistance;
     }
 }

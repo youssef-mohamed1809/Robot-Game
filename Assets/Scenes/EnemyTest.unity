@@ -401,9 +401,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {fileID: 4666321}
   pointB: {fileID: 1061667284}
-  flipRadius: 1.5
   speedx: 2
   speedy: 0
+  flipRadius: 1.5
   followSource: {fileID: 704432438}
   followSourceDistance: 3
   followSpeed: 2
