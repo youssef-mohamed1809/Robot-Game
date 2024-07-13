@@ -13,12 +13,14 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float speedx;
     [SerializeField] float speedy;
     [SerializeField] float flipRadius = 0.5f;
+    [SerializeField] bool canFly;
     private Transform currentPoint;
 
     [Header("Follow")]
     [SerializeField] Transform followSource;
     [SerializeField] float followSourceDistance;
     [SerializeField] float followSpeed;
+    
     private Vector3 startingPostition;
     private bool outOfPosition;
 
@@ -48,11 +50,9 @@ public class Enemy : MonoBehaviour {
         if (hit){ /* For the follow algorithm */
             if (hit.collider.gameObject.CompareTag("Player")){
                 distance = hit.collider.transform.position - this.transform.position;
-                if (speedx > 0.001f){
+                if (!canFly){
                     distance.y = 0;
-                } else {
-                    distance.x = 0;
-                }
+                } 
                 outOfPosition = true;
                 rb.AddForce(distance * followSpeed, ForceMode2D.Force);
             }
@@ -64,10 +64,13 @@ public class Enemy : MonoBehaviour {
             } else {
                 this.transform.position = Vector2.MoveTowards(this.transform.position,
                     startingPostition, speedy * Time.deltaTime);
+                Debug.Log("Y here");
             }
 
-            outOfPosition = false;
-
+            if (this.transform.position == startingPostition)
+            {
+                outOfPosition = false;
+            }
         } else {
 
             if (currentPoint == pointB.transform){
@@ -79,13 +82,19 @@ public class Enemy : MonoBehaviour {
 
             if (Vector2.Distance(this.transform.position, currentPoint.position) < flipRadius
                 && currentPoint == pointB.transform){
-                flip();
+                if (!canFly)
+                {
+                    flip();
+                }
                 currentPoint = pointA.transform;
             }
 
             if (Vector2.Distance(this.transform.position, currentPoint.position) < flipRadius
                 && currentPoint == pointA.transform){
-                flip();
+                if (!canFly)
+                {
+                    flip();
+                }
                 currentPoint = pointB.transform;
             }
 
