@@ -27,6 +27,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator player_animator;
 
 
+    [SerializeField] AudioSource player_audio;
+    [SerializeField] AudioClip shoot;
+    [SerializeField] AudioClip damage;
+    [SerializeField] AudioClip dash;
+
+
     private double time_dashed;
     private PlayerInput player_input;
     bool isDashed;
@@ -52,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     void do_dash()
     {
+        player_audio.clip = dash;
+        player_audio.Play();
         if (horizontal_movement > 0)
         {
             Debug.Log("Ana Hena");
@@ -124,6 +132,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnShoot(InputAction.CallbackContext context)
     {
         player_animator.SetTrigger("shoot");
+        player_audio.clip = shoot;
+        player_audio.Play();
+   
         GameObject obj = Instantiate(bullet, bullet_instantiation_point.position, Quaternion.identity);        
         Bullet bullet_script = obj.GetComponent<Bullet>();
         bullet_script.AddForce(new Vector2(this.transform.localScale.x, 0));
@@ -166,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void playDamageAnimation()
     {
+        player_audio.clip = damage;
+        player_audio.Play();
         player_animator.SetTrigger("damage");
     }
 }
