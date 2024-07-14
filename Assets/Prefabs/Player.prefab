@@ -217,6 +217,7 @@ MonoBehaviour:
   player_audio: {fileID: 5014410043253743643}
   shoot: {fileID: 8300000, guid: 873288bf080fdac49865690a17132fe9, type: 3}
   damage: {fileID: 8300000, guid: 6438594515e61934ea2a00357516a5c2, type: 3}
+  dash: {fileID: 0}
 --- !u!95 &6688024753763081902
 Animator:
   serializedVersion: 5
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 100
+  maxHealth: 50
 --- !u!82 &6412537975071366519
 AudioSource:
   m_ObjectHideFlags: 0

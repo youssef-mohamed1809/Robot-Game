@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,6 +44,18 @@ public class PlayerMovement : MonoBehaviour
 
         player_input = new PlayerInput();
         player_input.Enable();
+        /*player_input.Gameplay.Move.performed += OnMoveRightLeft;
+        player_input.Gameplay.Move.canceled += OnMoveRightLeft;
+
+        player_input.Gameplay.Jump.performed += OnJump;
+        player_input.Gameplay.Dash.performed += OnDash;
+
+        player_input.Gameplay.Shoot.performed += OnShoot;
+        */
+    }
+
+    private void OnEnable()
+    {
         player_input.Gameplay.Move.performed += OnMoveRightLeft;
         player_input.Gameplay.Move.canceled += OnMoveRightLeft;
 
@@ -53,8 +63,8 @@ public class PlayerMovement : MonoBehaviour
         player_input.Gameplay.Dash.performed += OnDash;
 
         player_input.Gameplay.Shoot.performed += OnShoot;
-    
     }
+
 
     void do_dash()
     {
@@ -87,6 +97,18 @@ public class PlayerMovement : MonoBehaviour
         }
         isDashed = false;
     }
+
+    private void OnDisable()
+    {
+        player_input.Gameplay.Move.performed -= OnMoveRightLeft;
+        player_input.Gameplay.Move.canceled -= OnMoveRightLeft;
+
+        player_input.Gameplay.Jump.performed -= OnJump;
+        player_input.Gameplay.Dash.performed -= OnDash;
+
+        player_input.Gameplay.Shoot.performed -= OnShoot;
+    }
+
     void FixedUpdate()
     {
 

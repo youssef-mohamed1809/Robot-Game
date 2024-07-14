@@ -90,7 +90,7 @@ MonoBehaviour:
   force: 10
   needRotation: 0
   keepAliveTime: 10
-  bulletDamage: 1
+  bulletDamage: 5
 --- !u!50 &1990643338725224583
 Rigidbody2D:
   serializedVersion: 4
