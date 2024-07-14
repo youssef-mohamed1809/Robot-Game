@@ -1,6 +1,8 @@
 
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -63,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
         player_input.Gameplay.Dash.performed += OnDash;
 
         player_input.Gameplay.Shoot.performed += OnShoot;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
