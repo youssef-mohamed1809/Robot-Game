@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+
     public int health;
     [SerializeField] int maxHealth = 100;
     private bool isInvincible = false;
