@@ -10,7 +10,6 @@ public class Health : MonoBehaviour
     [SerializeField] int maxHealth = 100;
     private bool isInvincible = false;
 
-    [SerializeField] Image healthBar;
     // Start is called before the first frame update
     void Start(){
         health = maxHealth;
@@ -19,8 +18,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HealthBarFiller();
-        ChangeBarColor();
+
     }
 
     public void addHealth(int added_health)
@@ -52,15 +50,14 @@ public class Health : MonoBehaviour
         this.isInvincible = isInvincible;
     }
 
-    public void HealthBarFiller()
+    public int getHealth()
     {
-        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, 1);
+        return health;
     }
 
-    public void ChangeBarColor()
+    public int getMaxHealth()
     {
-        Color healthColor = Color.Lerp(Color.red, Color.green, (health / maxHealth));
-        healthBar.color = healthColor;
+        return maxHealth;
     }
 
 }

@@ -6,19 +6,20 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Image healthBar;
-    [SerializeField] float health;
-    float maxHealth = 100;
-    float lerpSpeed;
+    [SerializeField] Health myHealth;
+    float health, maxHealth;
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        health = myHealth.getHealth();
+        maxHealth = myHealth.getMaxHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
-        lerpSpeed = 3f * Time.deltaTime;
+        health = myHealth.getHealth();
+        maxHealth = myHealth.getMaxHealth();
         HealthBarFiller();
         ChangeBarColor();
     }
