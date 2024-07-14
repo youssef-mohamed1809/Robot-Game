@@ -163,4 +163,9 @@ public class PlayerMovement : MonoBehaviour
             1,
             ground_layer);
     }
+
+    public void playDamageAnimation()
+    {
+        player_animator.SetTrigger("damage");
+    }
 }
