@@ -126,4 +126,14 @@ public class Enemy : MonoBehaviour {
     {
         return this.followSourceDistance;
     }
+
+    public void setSpeedx(float speed)
+    {
+        this.speedx = speed;
+    }
+
+    public float getSpeedx()
+    {
+        return this.speedx;
+    }
 }

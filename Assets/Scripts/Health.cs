@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     public int health;
     [SerializeField] int maxHealth = 100;
+    private bool isInvincible = false;
     // Start is called before the first frame update
     void Start(){
         health = maxHealth;
@@ -30,11 +31,19 @@ public class Health : MonoBehaviour
 
     public void takeDamage(int damage)
     {
-        health -= damage;
+        if (!isInvincible)
+        {
+            health -= damage;
+        }
         
         if (health <= 0)
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void setIsInvincible(bool isInvincible)
+    {
+        this.isInvincible = isInvincible;
     }
 }
