@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [SerializeField] GameObject winImage;
     public GameObject bulletPrefab;
     public Transform shootingPoint;
     public float shootingInterval = 2f;
@@ -19,6 +20,11 @@ public class Boss : MonoBehaviour
     void Start()
     {
         patrolStartPoint = transform.position;
+    }
+
+    private void OnDestroy()
+    {
+        winImage.SetActive(true);
     }
 
     void Update()

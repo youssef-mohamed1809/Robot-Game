@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3b71fec-94d5-42c8-9bbc-93e5cb38b9a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -150,6 +159,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2facd4c9-6af7-44ec-9f29-f61b2bb0d8ee"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -163,6 +183,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_Melee = m_Gameplay.FindAction("Melee", throwIfNotFound: true);
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_Melee;
     private readonly InputAction m_Gameplay_Shoot;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @PlayerInput m_Wrapper;
@@ -238,6 +260,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @Melee => m_Wrapper.m_Gameplay_Melee;
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -262,6 +285,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -281,6 +307,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -305,5 +334,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

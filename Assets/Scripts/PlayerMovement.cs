@@ -1,5 +1,5 @@
 
-using UnityEditor.SearchService;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioClip damage;
     [SerializeField] AudioClip dash;
 
+    [SerializeField] GameObject pauseMenuPanel;
+    private bool isPaused = false;
+
 
     private double time_dashed;
     private PlayerInput player_input;
@@ -46,14 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
         player_input = new PlayerInput();
         player_input.Enable();
-        /*player_input.Gameplay.Move.performed += OnMoveRightLeft;
-        player_input.Gameplay.Move.canceled += OnMoveRightLeft;
 
-        player_input.Gameplay.Jump.performed += OnJump;
-        player_input.Gameplay.Dash.performed += OnDash;
 
-        player_input.Gameplay.Shoot.performed += OnShoot;
-        */
     }
 
     private void OnEnable()
@@ -65,11 +62,13 @@ public class PlayerMovement : MonoBehaviour
         player_input.Gameplay.Dash.performed += OnDash;
 
         player_input.Gameplay.Shoot.performed += OnShoot;
+        player_input.Gameplay.Pause.performed += OnPause;
     }
 
     private void OnDestroy()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // DO NOT USE
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
@@ -114,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         player_input.Gameplay.Dash.performed -= OnDash;
 
         player_input.Gameplay.Shoot.performed -= OnShoot;
+        player_input.Gameplay.Pause.performed -= OnPause;
     }
 
     void FixedUpdate()
@@ -209,5 +209,44 @@ public class PlayerMovement : MonoBehaviour
         player_audio.clip = damage;
         player_audio.Play();
         player_animator.SetTrigger("damage");
+    }
+
+    private void OnPause(InputAction.CallbackContext context)
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    public void PauseGame()
+    {
+        pauseMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenuPanel.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+
+        SceneManager.LoadScene(0);
+        //Application.Quit();
     }
 }

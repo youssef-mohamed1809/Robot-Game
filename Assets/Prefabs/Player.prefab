@@ -112,7 +112,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 2001843861, guid: c30ec4b845ca6064c8e26224c7ce18ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -215,9 +215,10 @@ MonoBehaviour:
   bullet_despawn_time: 2
   player_animator: {fileID: 6688024753763081902}
   player_audio: {fileID: 5014410043253743643}
-  shoot: {fileID: 8300000, guid: 873288bf080fdac49865690a17132fe9, type: 3}
+  shoot: {fileID: 8300000, guid: 627e409005f66f0419c608451f37f2f6, type: 3}
   damage: {fileID: 8300000, guid: 6438594515e61934ea2a00357516a5c2, type: 3}
-  dash: {fileID: 0}
+  dash: {fileID: 8300000, guid: a075efb35f21c4d45bab03319ce195a1, type: 3}
+  pauseMenuPanel: {fileID: 6523007391506704042, guid: a6e3128c8538e52459e2d7f971876ed6, type: 3}
 --- !u!95 &6688024753763081902
 Animator:
   serializedVersion: 5
@@ -470,7 +471,7 @@ Transform:
   m_GameObject: {fileID: 4785062372209499383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.64, y: -0.16, z: 0}
+  m_LocalPosition: {x: 1.31, y: -0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
